@@ -2,32 +2,27 @@
 
 currentDir=$(pwd)
 
-if [[ -d /tmp/owncloud-documentation ]]
+if [[ -d /tmp/nextcloud-documentation ]]
 then
-	rm -rf /tmp/owncloud-documentation
+	rm -rf /tmp/nextcloud-documentation
 fi
 
 # fetch documentation repo
-git clone -q git@github.com:owncloud/documentation.git /tmp/owncloud-documentation
-cd /tmp/owncloud-documentation
+git clone -q git@github.com:nextcloud/documentation.git /tmp/nextcloud-documentation
+cd /tmp/nextcloud-documentation
 
-for branch in stable7 stable8 stable8.1 stable8.2 stable9 master
+for branch in stable9 master
 do
 	git checkout -q $branch
 	cd $currentDir
 
 	# download current version of config.sample.php
-	curl -sS -o /tmp/config.sample.php https://raw.githubusercontent.com/owncloud/core/$branch/config/config.sample.php
+	curl -sS -o /tmp/config.sample.php https://raw.githubusercontent.com/nextcloud/server/$branch/config/config.sample.php
 
-	if [[ $branch == 'stable7' ]]; then
-		# use that to generate the documentation
-		php convert.php --input-file=/tmp/config.sample.php --output-file=/tmp/owncloud-documentation/admin_manual/configuration/config_sample_php_parameters.rst
-	else
-		# use that to generate the documentation
-		php convert.php --input-file=/tmp/config.sample.php --output-file=/tmp/owncloud-documentation/admin_manual/configuration_server/config_sample_php_parameters.rst
-	fi
+	# use that to generate the documentation
+	php convert.php --input-file=/tmp/config.sample.php --output-file=/tmp/nextcloud-documentation/admin_manual/configuration_server/config_sample_php_parameters.rst
 
-	cd /tmp/owncloud-documentation
+	cd /tmp/nextcloud-documentation
 	# invokes an output if something has changed
 	status=$(git status -s)
 
