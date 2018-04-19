@@ -11,7 +11,7 @@ fi
 git clone -q git@github.com:nextcloud/documentation.git /tmp/nextcloud-documentation
 cd /tmp/nextcloud-documentation
 
-for branch in stable9 stable10 stable11 stable12 master
+for branch in stable12 stable13 master
 do
 	git checkout -q $branch
 	cd $currentDir
