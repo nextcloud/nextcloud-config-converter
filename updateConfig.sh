@@ -8,12 +8,12 @@ then
 fi
 
 # fetch documentation repo
-git clone -q git@github.com:nextcloud/documentation.git /tmp/nextcloud-documentation
+git clone git@github.com:nextcloud/documentation.git /tmp/nextcloud-documentation
 cd /tmp/nextcloud-documentation
 
 for branch in stable12 stable13 master
 do
-	git checkout -q $branch
+	git checkout  $branch
 	cd $currentDir
 
 	# download current version of config.sample.php
@@ -28,7 +28,7 @@ do
 
 	if [ -n "$status" ]; then
 		echo "Push $branch"
-		git commit -qam 'generate documentation from config.sample.php'
+		git commit -am 'generate documentation from config.sample.php'
 		git push
 	fi
 
