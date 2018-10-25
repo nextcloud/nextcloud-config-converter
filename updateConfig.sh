@@ -17,7 +17,7 @@ do
 	cd $currentDir
 
 	# download current version of config.sample.php
-	curl -sS -o /tmp/config.sample.php https://raw.githubusercontent.com/nextcloud/server/$branch/config/config.sample.php
+	curl -o /tmp/config.sample.php https://raw.githubusercontent.com/nextcloud/server/$branch/config/config.sample.php
 
 	# use that to generate the documentation
 	php convert.php --input-file=/tmp/config.sample.php --output-file=/tmp/nextcloud-documentation/admin_manual/configuration_server/config_sample_php_parameters.rst
