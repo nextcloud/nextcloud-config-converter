@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# verbose and exit on error
+set -xe
+
+# import GPG keys
+gpg --import /gpg/nextcloud-bot.public.asc
+gpg --allow-secret-key-import --import /gpg/nextcloud-bot.asc
+gpg --list-keys
+
 currentDir=$(pwd)
 
 if [[ -d /tmp/nextcloud-documentation ]]
