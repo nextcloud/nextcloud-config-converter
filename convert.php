@@ -105,10 +105,16 @@ $docBlock = file_get_contents($CONFIG_SAMPLE_FILE);
 
 // trim everything before this (including itself)
 $start = '$CONFIG = array(';
+if (strpos($docBlock, $start) === false) {
+	$start = '$CONFIG = [';
+}
 $docBlock = substr($docBlock, strpos($docBlock, $start) + strlen($start));
 
 // trim the end of the config variable
 $end = ');';
+if (strrpos($docBlock, $end) === false) {
+	$end = '];';
+}
 $docBlock = substr($docBlock, 0, strrpos($docBlock, $end));
 
 // split on '/**'
