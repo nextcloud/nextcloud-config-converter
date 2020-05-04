@@ -107,6 +107,10 @@ $docBlock = file_get_contents($CONFIG_SAMPLE_FILE);
 $start = '$CONFIG = array(';
 if (strpos($docBlock, $start) === false) {
 	$start = '$CONFIG = [';
+	if (strpos($docBlock, $start) === false) {
+		print("Could not find head of config array in config.sample.php\n");
+		exit(1);
+	}
 }
 $docBlock = substr($docBlock, strpos($docBlock, $start) + strlen($start));
 
@@ -114,6 +118,10 @@ $docBlock = substr($docBlock, strpos($docBlock, $start) + strlen($start));
 $end = ');';
 if (strrpos($docBlock, $end) === false) {
 	$end = '];';
+	if (strpos($docBlock, $end) === false) {
+		print("Could not find tail of config array in config.sample.php\n");
+		exit(1);
+	}
 }
 $docBlock = substr($docBlock, 0, strrpos($docBlock, $end));
 
@@ -230,7 +238,7 @@ $configDocumentationOutput = '';
 $tmp = explode('DEFAULT_SECTION_START', $configDocumentation);
 if(count($tmp) !== 2) {
 	print("There are not exactly one DEFAULT_SECTION_START in the config documentation\n");
-	exit();
+	exit(1);
 }
 
 $configDocumentationOutput .= $tmp[0];
@@ -244,14 +252,14 @@ $configDocumentationOutput .= "\n.. DEFAULT_SECTION_END";
 $tmp = explode('DEFAULT_SECTION_END', $tmp[1]);
 if(count($tmp) !== 2) {
 	print("There are not exactly one DEFAULT_SECTION_END in the config documentation\n");
-	exit();
+	exit(1);
 }
 // drop the first part (old generated documentation which should be overwritten
 // by  this script) and just process
 $tmp  = explode('ALL_OTHER_SECTIONS_START', $tmp[1]);
 if(count($tmp) !== 2) {
 	print("There are not exactly one ALL_OTHER_SECTIONS_START in the config documentation\n");
-	exit();
+	exit(1);
 }
 // apppend middle part between DEFAULT_SECTION_END and ALL_OTHER_SECTIONS_START
 $configDocumentationOutput .= $tmp[0];
@@ -265,7 +273,7 @@ $configDocumentationOutput .= $output;
 $tmp  = explode('ALL_OTHER_SECTIONS_END', $tmp[1]);
 if(count($tmp) !== 2) {
 	print("There are not exactly one ALL_OTHER_SECTIONS_END in the config documentation\n");
-	exit();
+	exit(1);
 }
 // append end placeholder
 $configDocumentationOutput .= "\n.. ALL_OTHER_SECTIONS_END";
