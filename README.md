@@ -10,7 +10,7 @@ Install the dependencies with `composer`:
 
 ## How to use
 
-Just call following in your ownCloud core repo:
+Just call following in your Nextcloud server repo:
 
 	php path/to/convert.php
 

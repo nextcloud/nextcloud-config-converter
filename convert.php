@@ -25,7 +25,7 @@
  */
 
 /**
- * This code extracts the code comments out of ownCloud's
+ * This code extracts the code comments out of Nextcloud's
  * config/config.sample.php and creates a RST document
  */
 
@@ -57,7 +57,7 @@ function escapeRST($string) {
 // tag which invokes to copy a config description to the current position
 $COPY_TAG = 'see';
 // file which should be parsed
-$CONFIG_SAMPLE_FILE = '../core/config/config.sample.php';
+$CONFIG_SAMPLE_FILE = '../server/config/config.sample.php';
 // config documentation file to put content in
 $OUTPUT_FILE = 'admin_manual/configuration/config_sample_php_parameters.rst';
 
@@ -74,7 +74,7 @@ $options = getopt(
 if(array_key_exists('h', $options) || array_key_exists('help', $options)) {
 	$helptext = $argv[0] . " [OPTION] ... (all options are optional)\n\n" .
 	" -h, --help                   Print this help text\n".
-	" -iFILE, --input-file=FILE    Specify the input file (Default: ../core/config/config.sample.php)\n".
+	" -iFILE, --input-file=FILE    Specify the input file (Default: ../server/config/config.sample.php)\n".
 	" -oFILE, --output-file=FILE   Specify the output file (Default: admin_manual/configuration/config_sample_php_parameters.rst)\n".
 	" -tNAME, --tag=NAME           Tag to use for copying a config entry (default: see)\n".
 	"\n";
