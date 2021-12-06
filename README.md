@@ -1,4 +1,4 @@
-# ownCloud config.sample.php to RST converter
+# Nextcloud config.sample.php to RST converter
 
 This script creates a RST file from the comments inside of config.sample.php.
 
