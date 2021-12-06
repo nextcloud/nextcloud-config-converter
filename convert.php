@@ -25,7 +25,7 @@
  */
 
 /**
- * This code extracts the code comments out of ownCloud's
+ * This code extracts the code comments out of Nextcloud's
  * config/config.sample.php and creates a RST document
  */
 
