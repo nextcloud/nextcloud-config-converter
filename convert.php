@@ -26,7 +26,7 @@
 
 /**
  * This code extracts the code comments out of Nextcloud's
- * config/config.sample.php and creates a RST document
+ * config/config.sample.php and creates an RST document
  */
 
 
@@ -40,7 +40,7 @@ function escapeRST($string) {
 
 	$parts = explode('``', $string);
 	foreach ($parts as $key => &$part) {
-		# just even parts are outside of the code block
+		# just even parts are outside the code block
 		# example:
 		#
 		# 	Test code: ``$my = $code + 5;`` shows that ...
@@ -174,14 +174,15 @@ foreach ($blocks as $block) {
 	}
 
 	// parse the doc block
-	$phpdoc = new \phpDocumentor\Reflection\DocBlock($doc);
+	$factory  = \phpDocumentor\Reflection\DocBlockFactory::createInstance();
+	$phpdoc = $factory->create($doc);
 
 	// check for tagged elements to replace the tag with the actual config
 	// description
 	$references = $phpdoc->getTagsByName($COPY_TAG);
 	if (!empty($references)) {
 		foreach ($references as $reference) {
-			$name = $reference->getContent();
+			$name = $reference->getName();
 			if (array_key_exists($name, $lookup)) {
 				// append the element at the current position
 				$output .= $lookup[$name];
@@ -194,10 +195,10 @@ foreach ($blocks as $block) {
 	// generate RST output
 	if (is_null($id)) {
 		// print heading - no
-		$heading = $phpdoc->getShortDescription();
+		$heading = $phpdoc->getSummary();
 		$RSTRepresentation .= "\n" . $heading . "\n";
 		$RSTRepresentation .= str_repeat('-', strlen($heading)) . "\n\n";
-		$longDescription = $phpdoc->getLongDescription();
+		$longDescription = (string) $phpdoc->getDescription();
 		if (trim($longDescription) !== '') {
 			$RSTRepresentation .= $longDescription . "\n\n";
 		}
@@ -211,14 +212,21 @@ foreach ($blocks as $block) {
 		$RSTRepresentation .= "\n::\n\n";
 		// trim whitespace
 		$code = trim($code);
-		// intend every line by an tab - also trim whitespace
+		// intend every line by a tab - also trim whitespace
 		// (for example: empty lines at the end)
 		foreach (explode("\n", trim($code)) as $line) {
 			$RSTRepresentation .= "\t" . $line . "\n";
 		}
 		$RSTRepresentation .= "\n";
+
+		$fullDocBlock = $phpdoc->getSummary();
+		$longDescription = $phpdoc->getDescription()->render();
+		if ($longDescription !== '') {
+			$fullDocBlock .=  "\n\n" . $longDescription;
+		}
+
 		// print description
-		$RSTRepresentation .= escapeRST($phpdoc->getText());
+		$RSTRepresentation .= escapeRST($fullDocBlock);
 		// empty line
 		$RSTRepresentation .= "\n";
 
@@ -261,7 +269,7 @@ if(count($tmp) !== 2) {
 	print("There are not exactly one ALL_OTHER_SECTIONS_START in the config documentation\n");
 	exit(1);
 }
-// apppend middle part between DEFAULT_SECTION_END and ALL_OTHER_SECTIONS_START
+// append middle part between DEFAULT_SECTION_END and ALL_OTHER_SECTIONS_START
 $configDocumentationOutput .= $tmp[0];
 // append start placeholder
 $configDocumentationOutput .= "ALL_OTHER_SECTIONS_START\n\n";
