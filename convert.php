@@ -208,6 +208,9 @@ foreach ($blocks as $block) {
 			$isFirstSection = false;
 		}
 	} else {
+		$RSTRepresentation .= "\n" . $id . "\n";
+		$RSTRepresentation .= str_repeat('^', strlen($id)) . "\n\n";
+
 		// mark as literal (code block)
 		$RSTRepresentation .= "\n::\n\n";
 		// trim whitespace
