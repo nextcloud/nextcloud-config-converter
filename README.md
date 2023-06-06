@@ -12,7 +12,7 @@ Install the dependencies with `composer`:
 
 Just call following in your Nextcloud server repo:
 
-	php path/to/convert.php
+	php -f convert.php path/to/config.sample.php path/to/config_sample_php_parameters.rst
 
 This will create a file `sample_config.rst` which was generated from `config/config.sample.php`
 
