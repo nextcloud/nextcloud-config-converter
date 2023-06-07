@@ -6,7 +6,7 @@ This script creates a RST file from the comments inside of config.sample.php.
 
 Install the dependencies with `composer`:
 
-	composer update
+	composer install
 
 ## How to use
 
