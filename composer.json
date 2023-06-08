@@ -1,5 +1,6 @@
 {
     "require": {
-        "phpdocumentor/reflection-docblock": "^5.3"
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "php": "^8.0"
     }
 }

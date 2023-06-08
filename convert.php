@@ -57,9 +57,9 @@ function escapeRST($string) {
 // tag which invokes to copy a config description to the current position
 $COPY_TAG = 'see';
 // file which should be parsed
-$CONFIG_SAMPLE_FILE = '../server/config/config.sample.php';
+$CONFIG_SAMPLE_FILE = $argv[1] ?? '../server/config/config.sample.php';
 // config documentation file to put content in
-$OUTPUT_FILE = 'admin_manual/configuration/config_sample_php_parameters.rst';
+$OUTPUT_FILE = $argv[2] ?? 'admin_manual/configuration/config_sample_php_parameters.rst';
 
 /**
  * h - help
