@@ -36,7 +36,7 @@ do
 
 	if [ -n "$status" ]; then
 		echo "Push $branch"
-		git commit -am 'generate documentation from config.sample.php'
+		git commit -am 'chore(administration): Generate system config documentation from config.sample.php'
 		git push
 	fi
 
