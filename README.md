@@ -2,21 +2,31 @@
 
 This script creates a RST file from the comments inside of config.sample.php.
 
+## Production setup
+
+The live environment that updates https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html is running on the translation sync server based on this docker image:
+https://github.com/nextcloud/docker-ci/blob/master/translations/Dockerfile-Documentation-Sync
+So after performing changes in this repository here, a new docker image has to be created in the docker-ci repository.
+
 ## Requirements
 
 Install the dependencies with `composer`:
 
-	composer install
+```sh
+composer install
+```
 
 ## How to use
 
 Just call following in your Nextcloud server repo:
 
-	php -f convert.php path/to/config.sample.php path/to/config_sample_php_parameters.rst
+```sh
+php -f convert.php path/to/config.sample.php path/to/config_sample_php_parameters.rst
+```
 
 This will create a file `sample_config.rst` which was generated from `config/config.sample.php`
 
-## Supported feature set
+### Supported feature set
 
 Currently this relies on following
 
@@ -24,42 +34,24 @@ Currently this relies on following
  * add a `@see CONFIG_INDEX` to copy a previously described config option also to this line
  * everything between the ` */` and the next `/**` will be treated as the config option
 
-## Options to set
+### Options to set
 
 You can set following options:
 
 The tag which invokes to copy a config description to the current position
 
-	$COPY_TAG = 'see';
+```php
+$COPY_TAG = 'see';
+```
 
 The file which should be parsed
 
-	$CONFIG_SAMPLE_FILE = 'config/config.sample.php';
+```php
+$CONFIG_SAMPLE_FILE = 'config/config.sample.php';
+```
 
 The file to put output in
 
-	$OUTPUT_FILE = 'sample_config.rst';
-
-## License
-
-The MIT License (MIT)
-
-Copyright (c) 2014 Morris Jobke <hey@morrisjobke.de>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+```php
+$OUTPUT_FILE = 'sample_config.rst';
+```
