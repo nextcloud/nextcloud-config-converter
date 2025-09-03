@@ -156,7 +156,7 @@ foreach ($blocks as $block) {
 	// there is a config option or none if the comment is just a heading of
 	// the next section
 	// echo "DEBUG: current block is: $block\n";
-	preg_match('!^\\s\'([^\']*)\'!m', $block, $matches);
+	preg_match('!^\\s*\'([^\']*)\'!m', $block, $matches);
 	if (!in_array(count($matches), array(0, 2))) {
 		echo "Uncommon matches count found in the sample config file ($CONFIG_SAMPLE_FILE)!\n";
 		echo '<pre>';
