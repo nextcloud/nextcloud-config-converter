@@ -155,7 +155,8 @@ foreach ($blocks as $block) {
 	// check if there is a config option below the comment (should be one if
 	// there is a config option or none if the comment is just a heading of
 	// the next section
-	preg_match('!^\'([^\']*)\'!m', $block, $matches);
+	// echo "DEBUG: current block is: $block\n";
+	preg_match('!^\\s\'([^\']*)\'!m', $block, $matches);
 	if (!in_array(count($matches), array(0, 2))) {
 		echo "Uncommon matches count found in the sample config file ($CONFIG_SAMPLE_FILE)!\n";
 		echo '<pre>';
@@ -165,6 +166,7 @@ foreach ($blocks as $block) {
 
 	// if there are two matches a config key was found -> set it as configKey
 	if (count($matches) === 2) {
+		//echo "DEBUG: found configKey: $matches[1]\n";
 		$configKey = $matches[1];
 	}
 
@@ -212,8 +214,8 @@ foreach ($blocks as $block) {
 		}
 	// process individual configKey documentation entry blocks
 	} else {
-		$RSTRepresentation .= "\n" . $id . "\n";
-		$RSTRepresentation .= str_repeat('^', strlen($id)) . "\n\n";
+		$RSTRepresentation .= "\n" . $configKey . "\n";
+		$RSTRepresentation .= str_repeat('^', strlen($configKey)) . "\n\n";
 
 		// mark as literal (code block)
 		$RSTRepresentation .= "\n::\n\n";
@@ -312,12 +314,12 @@ file_put_contents($OUTPUT_FILE, $sampleConfigDocOutput);
 /**
  */
 function escapeRST(string $content): string {
-	// just replace all \ by \\ if there is no code block present
-	if(strpos($string, '``') === false) {
-		return str_replace('\\', '\\\\', $string);
+	// replace all \ by \\ and return if there is no code block present
+	if (strpos($content, '``') === false) {
+		return str_replace('\\', '\\\\', $content);
 	}
 
-	$parts = explode('``', $string);
+	$parts = explode('``', $content);
 	foreach ($parts as $key => &$part) {
 		/** just even parts are outside the code block
 		* example:
@@ -326,7 +328,7 @@ function escapeRST(string $content): string {
 		*
 		* The code part has the id 1 and is an odd number
 		*/
-		if($key%2 == 0) {
+		if ($key % 2 == 0) {
 			str_replace('\\', '\\\\', $part);
 		}
 	}
