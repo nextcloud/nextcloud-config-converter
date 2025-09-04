@@ -155,7 +155,6 @@ foreach ($blocks as $block) {
 	// check if there is a config option below the comment (should be one if
 	// there is a config option or none if the comment is just a heading of
 	// the next section
-	// echo "DEBUG: current block is: $block\n";
 	preg_match('!^\\s*\'([^\']*)\'!m', $block, $matches);
 	if (!in_array(count($matches), array(0, 2))) {
 		echo "Uncommon matches count found in the sample config file ($CONFIG_SAMPLE_FILE)!\n";
@@ -166,7 +165,6 @@ foreach ($blocks as $block) {
 
 	// if there are two matches a config key was found -> set it as configKey
 	if (count($matches) === 2) {
-		//echo "DEBUG: found configKey: $matches[1]\n";
 		$configKey = $matches[1];
 	}
 
