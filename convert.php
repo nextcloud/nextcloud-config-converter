@@ -232,6 +232,9 @@ foreach ($blocks as $block) {
 			$fullDocBlock .=  "\n\n" . $longDescription;
 		}
 
+		$fullDocBlock = formatBlocks($fullDocBlock, 'WARNING', 'warning');
+		$fullDocBlock = formatBlocks($fullDocBlock, 'NOTE', 'note');
+
 		// print description
 		$RSTRepresentation .= escapeRST($fullDocBlock);
 		// empty line
@@ -332,4 +335,39 @@ function escapeRST(string $content): string {
 	}
 
 	return implode('``', $parts);
+}
+
+function formatBlocks(string $fullDocBlock, string $markdown, string $rst): string {
+	for ($i = 0; $i < 10; $i++) {
+		if (!str_contains($fullDocBlock, $markdown . ': ')) {
+			break;
+		}
+		$offset = strpos($fullDocBlock, $markdown . ': ');
+
+		// Check if the warning line ends with colon, indicating a list follows
+		$endOfLine = strpos($fullDocBlock, "\n", $offset);
+		$endOfWarningOffset = $offset;
+		if ($endOfLine !== false && $fullDocBlock[$endOfLine - 1] === ':') {
+			$endOfWarningOffset = $endOfLine + strlen(":\n\n");
+		}
+
+
+		// End of a list block
+		$end = strpos($fullDocBlock, "\n\n", $endOfWarningOffset);
+		if ($end === false) {
+			// End of the description
+			$end = strlen($fullDocBlock);
+		}
+
+		$before = substr($fullDocBlock, 0, $offset);
+		$warning = substr($fullDocBlock, $offset, $end - $offset);
+		$after = substr($fullDocBlock, $end);
+
+		$warning = str_replace("\n", "\n  ", $warning);
+
+		$fullDocBlock = $before;
+		$fullDocBlock .= str_replace($markdown . ': ', "\n\n.. $rst::\n\n  ", $warning);
+		$fullDocBlock .= $after;
+	}
+	return $fullDocBlock;
 }
