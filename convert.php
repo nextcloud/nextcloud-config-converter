@@ -236,6 +236,13 @@ foreach ($blocks as $block) {
 			}
 		}
 
+		$deprecated = $phpdoc->getTagsByName('deprecated');
+		if ($deprecated) {
+			foreach ($deprecated as $deprecation) {
+				$fullDocBlock .= "\n\n.. deprecated:: " . str_replace("\n", ' ', $deprecation);
+			}
+		}
+
 		$fullDocBlock = formatBlocks($fullDocBlock, 'WARNING', 'warning');
 		$fullDocBlock = formatBlocks($fullDocBlock, 'NOTE', 'note');
 
