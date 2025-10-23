@@ -1,6 +1,9 @@
 {
-    "require": {
-        "phpdocumentor/reflection-docblock": "^5.3",
-        "php": "^8.0"
-    }
+  "require": {
+    "phpdocumentor/reflection-docblock": "^5.3",
+    "php": "^8.0"
+  },
+  "scripts": {
+    "test": "php convert.php tests/test.php tests/test.rst"
+  }
 }
