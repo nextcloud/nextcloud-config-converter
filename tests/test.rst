@@ -222,5 +222,18 @@ Defaults to:
 - /bin
 - /opt/bin
 
+files_external_allow_create_new_local
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+::
+
+	'files_external_allow_create_new_local' => true,
+
+Code block
+directly after the summary::
+
+    occ status
+
 .. ALL_OTHER_SECTIONS_END
 .. Generated content above. Don't change this.

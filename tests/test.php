@@ -153,4 +153,12 @@ $CONFIG = [
 	 * - /opt/bin
 	 */
 	'binary_search_paths' => [],
+
+	/**
+	 * Code block
+	 * directly after the summary::
+	 *
+	 *     occ status
+	 */
+	'files_external_allow_create_new_local' => true,
 ];

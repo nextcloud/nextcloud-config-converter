@@ -229,7 +229,11 @@ foreach ($blocks as $block) {
 		$fullDocBlock = $phpdoc->getSummary();
 		$longDescription = $phpdoc->getDescription()->render();
 		if ($longDescription !== '') {
-			$fullDocBlock .=  "\n\n" . $longDescription;
+			if (str_ends_with($fullDocBlock, '::')) {
+				$fullDocBlock .=  "\n\n    " . $longDescription;
+			} else {
+				$fullDocBlock .=  "\n\n" . $longDescription;
+			}
 		}
 
 		$fullDocBlock = formatBlocks($fullDocBlock, 'WARNING', 'warning');
