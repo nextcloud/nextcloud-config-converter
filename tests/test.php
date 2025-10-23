@@ -161,4 +161,13 @@ $CONFIG = [
 	 *     occ status
 	 */
 	'files_external_allow_create_new_local' => true,
+
+	/**
+	 * Just a list::
+	 *
+	 * - Item 1
+	 * - Item 2
+	 * - Item 3
+	 */
+	'files_external_allow_create_new_local2' => true,
 ];

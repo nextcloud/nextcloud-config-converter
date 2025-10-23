@@ -235,5 +235,19 @@ directly after the summary::
 
     occ status
 
+files_external_allow_create_new_local2
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+::
+
+	'files_external_allow_create_new_local2' => true,
+
+Just a list::
+
+- Item 1
+- Item 2
+- Item 3
+
 .. ALL_OTHER_SECTIONS_END
 .. Generated content above. Don't change this.

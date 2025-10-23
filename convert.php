@@ -229,7 +229,7 @@ foreach ($blocks as $block) {
 		$fullDocBlock = $phpdoc->getSummary();
 		$longDescription = $phpdoc->getDescription()->render();
 		if ($longDescription !== '') {
-			if (str_ends_with($fullDocBlock, '::')) {
+			if (str_ends_with($fullDocBlock, '::') && !str_starts_with($longDescription, '-')) {
 				$fullDocBlock .=  "\n\n    " . $longDescription;
 			} else {
 				$fullDocBlock .=  "\n\n" . $longDescription;
