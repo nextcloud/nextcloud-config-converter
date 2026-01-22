@@ -19,7 +19,7 @@ fi
 git clone git@github.com:nextcloud/documentation.git /tmp/nextcloud-documentation
 cd /tmp/nextcloud-documentation
 
-for branch in stable30 stable31 stable32 master
+for branch in stable31 stable32 stable33 master
 do
 	git checkout  $branch
 	cd $currentDir
