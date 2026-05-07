@@ -219,7 +219,7 @@ foreach ($blocks as $block) {
 		$RSTRepresentation .= "\n::\n\n";
 		// trim whitespace
 		$code = trim($code);
-		// intend every line by a tab - also trim whitespace
+		// indent every line by 4 spaces - also trim whitespace
 		// (for example: empty lines at the end)
 		foreach (explode("\n", trim($code)) as $line) {
 			$RSTRepresentation .= "    " . $line . "\n";
