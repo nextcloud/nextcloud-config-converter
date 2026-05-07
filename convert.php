@@ -222,7 +222,7 @@ foreach ($blocks as $block) {
 		// intend every line by a tab - also trim whitespace
 		// (for example: empty lines at the end)
 		foreach (explode("\n", trim($code)) as $line) {
-			$RSTRepresentation .= "\t" . $line . "\n";
+			$RSTRepresentation .= "    " . $line . "\n";
 		}
 		$RSTRepresentation .= "\n";
 
