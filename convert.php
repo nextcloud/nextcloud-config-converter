@@ -221,8 +221,10 @@ foreach ($blocks as $block) {
 		$code = trim($code);
 		// indent every line by 4 spaces - also trim whitespace
 		// (for example: empty lines at the end)
+		// expand tabs to spaces and skip indent on empty lines to avoid trailing whitespace
 		foreach (explode("\n", trim($code)) as $line) {
-			$RSTRepresentation .= "    " . $line . "\n";
+			$line = rtrim(str_replace("\t", "    ", $line));
+			$RSTRepresentation .= ($line !== '' ? "    " . $line : '') . "\n";
 		}
 		$RSTRepresentation .= "\n";
 
@@ -319,6 +321,9 @@ $sampleConfigDocOutput .= "\n.. ALL_OTHER_SECTIONS_END";
 
 // retain everything after the ALL_OTHERS_SECTION_END
 $sampleConfigDocOutput .= $tmp[1];
+
+// strip trailing whitespace from all lines
+$sampleConfigDocOutput = implode("\n", array_map('rtrim', explode("\n", $sampleConfigDocOutput)));
 
 // save the updated sample config RST document
 file_put_contents($OUTPUT_FILE, $sampleConfigDocOutput);
